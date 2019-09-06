@@ -4,8 +4,8 @@ function Home() {
     return (
         <div>
             <p>Welcome to Next.js!</p>
-            <Link href="/about?id=1" as="/about">
-                About
+            <Link href="/board">
+                <a>Board</a>
             </Link>
         </div>
     );

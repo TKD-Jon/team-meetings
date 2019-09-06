@@ -1,0 +1,12 @@
+[{
+    "person": {
+        "name": "Jon",
+        "projects": ["Precision Vision", "The Mac CL"]
+    }
+},
+{
+    "person": {
+        "name": "Joe",
+        "projects": ["D5 Iron", "American Trails"]
+    }
+}]
