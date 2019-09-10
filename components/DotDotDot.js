@@ -1,5 +1,5 @@
-function deleteItem() {
-    alert(`Pretend I'm not here`)
+function deleteItem(key) {
+    alert(`Pretend I deleted ${key}`)
 }
 
 const DotDotDot = props => (
@@ -11,7 +11,7 @@ const DotDotDot = props => (
                 <span className="circle three">3</span>
             </div>
             <div className="utilities">
-                <button onClick={deleteItem}>Delete</button>
+                <button onClick={() => deleteItem(props.projectID)}>Delete</button>
             </div>
         </div>
         {props.children}

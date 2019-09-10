@@ -6,7 +6,7 @@ import DotDotDot from '../components/DotDotDot'
 const Board = props => (
     <PageLayOut pageTitle="Home Page Duh" pageHeadline="Welcome to the Board page." >
         <div className="teamBoard">
-            {props.json.map(teamMember => (
+            {props.team.map(teamMember => (
                 <div id={teamMember.name} className="teamMember" key={teamMember.name}>
                     <h2 className="teamName">{teamMember.person.name}</h2>
                     <table>
@@ -16,8 +16,10 @@ const Board = props => (
                         <tbody>
                             {teamMember.person.projects.map(project => (
                                 <tr key={project}>
-                                    {project}
-                                    <DotDotDot />
+                                    {props.projects.map(test => (
+                                        (test.projectID == project ? test.projectDetail.name : null)
+                                    ))}
+                                    <DotDotDot projectID={project} />
                                 </tr>
                             ))}
                         </tbody>
@@ -69,13 +71,16 @@ const Board = props => (
 )
 
 Board.getInitialProps = async ({ req }) => {
-    const res = await fetch('http://localhost:3000/static/json/team.json')
-    const json = await res.json()
+    const team = await fetch('http://localhost:3000/static/json/team.json')
+    const teamJSON = await team.json()
 
-    let entry = json.map(entry => entry)
+    const projects = await fetch('http://localhost:3000/static/json/projects.json')
+    const projectsJSON = await projects.json()
+    
     
     return { 
-        json: entry
+        team: teamJSON.map(person => person),
+        projects: projectsJSON.map(project => project)
     }
 
 }
