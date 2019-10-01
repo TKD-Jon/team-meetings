@@ -1,17 +1,25 @@
-import fetch from 'isomorphic-unfetch'
+import DotDotDot from '../components/DotDotDot'
 
-import PageLayOut from '../components/PageLayOut'
-import TeamRenderer from '../components/TeamRenderer'
-
-const Board = props => (
-
-    <PageLayOut pageTitle="Home Page Duh" pageHeadline="Welcome to the Board page." >
-        <div className="teamBoard">
-            {props.team.map((teamMember) => (
-                    <TeamRenderer member={teamMember} projects={props.projects} />
-            ))}            
-        </div>
-        <style jsx>{`
+const TeamRenderer = (props) => {
+    return (
+        <div id={props.member.name} className="teamMember" key={props.member.name}>
+            <h2 className="teamName">{props.member.person.name}</h2>
+            <table>
+                <thead>
+                    <th>Projects:</th>
+                </thead>
+                <tbody>
+                    {props.member.person.projects.map(project => (
+                        <tr key={project} id={project} draggable="true">
+                            {props.projects.map(test => (
+                                (test.projectID == project ? test.projectDetail.name : null)
+                            ))}
+                            <DotDotDot projectID={project} />
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <style jsx>{`
             .teamName {
                 margin-top:0;
                 margin-bottom:.5em;
@@ -51,22 +59,8 @@ const Board = props => (
                 justify-content:space-between;
             }
         `}</style>
-    </PageLayOut>
-)
-
-Board.getInitialProps = async ({ req }) => {
-    const team = await fetch('http://localhost:3000/static/json/team.json')
-    const teamJSON = await team.json()
-
-    const projects = await fetch('http://localhost:3000/static/json/projects.json')
-    const projectsJSON = await projects.json()
-    
-    
-    return { 
-        team: teamJSON.map(person => person),
-        projects: projectsJSON.map(project => project)
-    }
-
+        </div>
+    )
 }
 
-export default Board
+export default TeamRenderer;
