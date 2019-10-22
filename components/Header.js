@@ -19,9 +19,16 @@ const Header = props => (
                 </Link>
             </a>
             <nav>
-                <Link href="../../board">
-                    <a>Team Board</a>
-                </Link>
+                <li>
+                    <Link href="../../board">
+                        <a>Team Board</a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="../../dnd">
+                        <a>DnD</a>
+                    </Link>
+                </li>
             </nav>
         </div>
         <style global jsx>{`
