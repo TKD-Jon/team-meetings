@@ -1113,3 +1113,73 @@ function autoComplete($type, $filterNum) {
     </script>
     <?php
 }
+
+
+
+///Use this loop
+            <style>
+                h2.letterTitle {
+                    border-bottom: .25px solid rgb(77,77,77);
+                    padding-bottom: .5em;
+                }
+                h3 {
+                    font-size: 1.5em;
+                    font-family: "proxima-nova",sans-serif !important;
+                    font-weight: 600;
+                }
+                .start {
+                    max-height: 16em;
+                    overflow: hidden;
+                    margin-top: 3em;
+                }
+            </style>
+            <!-- Start the Loop. -->
+                <?php 
+                    // Starting the variables so that I can make each comparison
+                    $letterCount = [];
+                    $letterCountSize = ['size'=>-1];
+
+                    // Starting the loop
+                    if ( have_posts() ) :
+                        // Adding an alt step inside the loop 
+                        $altStep = ['size'=> $letterCountSize["size"]];
+
+                        while ( have_posts() ) : 
+                            the_post();     
+                            $id = get_The_ID();
+
+                            $thisLetter = substr(get_the_title(), 0, 1);
+                            if($letterCount[$thisLetter] == 0 ) {
+
+                                // if($letterCountSize["size"] > $altStep["size"]) {
+                                    // ?>
+                                        <!-- </div> -->
+                                    <?php
+                                // }
+
+                                $altStep["size"] = sizeof($letterCount) - 1;
+
+                                ?>
+                                    <h2 class="letterTitle"><?php echo $thisLetter ?></h2>
+                                <?php
+                            } 
+
+                            // echo var_dump($letterCount);
+                            // echo '<br>';
+                            // echo $letterCountSize["size"];
+
+                            glossary();
+                            
+                            $letterCount[$thisLetter]++;
+                            $letterCountSize["size"] = sizeof($letterCount) - 1;
+                endwhile; 
+                // echo '</div>';
+                else : 
+                ?>
+                <!-- The very first "if" tested to see if there were any Posts to -->
+                <!-- display.  This "else" part tells what do if there weren't any. -->
+                <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
+
+                <!-- REALLY stop The Loop. -->
+
+                <?php endif;
